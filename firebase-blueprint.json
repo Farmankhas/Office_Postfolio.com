@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "PortfolioContent": {
+      "title": "PortfolioContent",
+      "description": "Published portfolio content and metadata for FA GROUP COMPANY founder",
+      "type": "object",
+      "properties": {
+        "portfolioName": { "type": "string" },
+        "founderName": { "type": "string" },
+        "role": { "type": "string" },
+        "heroBadge": { "type": "string" },
+        "heroDescription": { "type": "string" },
+        "profileImage": { "type": "string" },
+        "companyName": { "type": "string" },
+        "companyTagline": { "type": "string" },
+        "companyDescription": { "type": "string" },
+        "aboutBio": { "type": "string" },
+        "aboutFALink": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string" }
+      },
+      "required": ["portfolioName", "companyName"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized administrator user metadata and role",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["admin"] },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["role", "active"]
+    },
+    "MediaAsset": {
+      "title": "MediaAsset",
+      "description": "Published profile and project media image assets",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["profile", "project"] },
+        "url": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["type", "url", "uploadedBy"]
+    }
+  },
+  "firestore": {
+    "/portfolio/{docId}": {
+      "schema": "PortfolioContent",
+      "description": "Global published portfolio content (public read, admin write only)"
+    },
+    "/admins/{adminId}": {
+      "schema": "AdminUser",
+      "description": "Registered administrators with write permissions"
+    },
+    "/media/{mediaId}": {
+      "schema": "MediaAsset",
+      "description": "Uploaded media and image references (public read, admin write only)"
+    }
+  }
+}
